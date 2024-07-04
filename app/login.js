@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -10,28 +10,23 @@ import {
 } from "react-native";
 
 export default function Login() {
+  
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Image source={require("../assets/in.jpg")} style={styles.image} />
-      <TextInput style={styles.input} placeholder="Username or email" />
+      <TextInput style={styles.input} placeholder="Username or email"  />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
+
       />
-      <Link href="/welcome" style={styles.signInButton}>
-        Log in
-      </Link>
-      {/* <TouchableOpacity style={styles.signInButton}>
-        <Text
-          style={styles.signInButtonText}
-          onPress={() => {
-            setWlcm("yes");
-          }}
-        >
-          Log in
-        </Text>
-      </TouchableOpacity> */}
+      
+      <TouchableOpacity  onPress={() => router.push({ pathname: 'welcome', params: { name: "" } })} style={styles.signInButton}>
+        <Text style={{color:"white",fontWeight:"bold"}}> Log in</Text>
+      </TouchableOpacity>
+      
       <Text style={styles.optionText}>
         Don't have an account?{" "}
         <Link href="/signup" style={{ color: "blue" }}>

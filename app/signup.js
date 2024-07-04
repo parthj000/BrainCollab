@@ -48,7 +48,7 @@ export default function SignUpPage( ) {
         <TouchableWithoutFeedback onPress={toggleShowPassword}>
           <Ionicons
             name={showPassword ? "eye-outline" : "eye-off-outline"}
-            size={24}
+            
             color="#6c757d"
             style={styles.toggleIcon}
           />
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   halfInput: {
-    width: "48%", // Adjust width as needed
+    width: "48%", 
   },
   row: {
     flexDirection: "row",
