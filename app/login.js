@@ -9,8 +9,6 @@ import {
   Image,
 } from "react-native";
 
-
-
 export default function Login() {
   return (
     <View style={styles.container}>
@@ -21,7 +19,9 @@ export default function Login() {
         placeholder="Password"
         secureTextEntry={true}
       />
-      <Link href="page" style={styles.signInButton}>Log in</Link>
+      <Link href="/welcome" style={styles.signInButton}>
+        Log in
+      </Link>
       {/* <TouchableOpacity style={styles.signInButton}>
         <Text
           style={styles.signInButtonText}
@@ -34,12 +34,13 @@ export default function Login() {
       </TouchableOpacity> */}
       <Text style={styles.optionText}>
         Don't have an account?{" "}
-        <Link href="/signup" style={{color:"blue"}}>Sign Up</Link>
+        <Link href="/signup" style={{ color: "blue" }}>
+          Sign Up
+        </Link>
       </Text>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -58,13 +59,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   signInButton: {
-    color:"white",
+    color: "white",
     width: "100%",
     backgroundColor: "#007BFF",
     padding: 12,
     marginTop: 15,
     alignItems: "center",
-    textAlign:"center",
+    textAlign: "center",
     borderRadius: 10,
   },
   signInButtonText: {
@@ -79,9 +80,7 @@ const styles = StyleSheet.create({
   image: {
     width: "119%",
     height: 300,
-    marginBottom:20,
-    aspectRatio:"1/1",
-
-    
+    marginBottom: 20,
+    aspectRatio: "1/1",
   },
 });
