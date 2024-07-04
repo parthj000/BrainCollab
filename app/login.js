@@ -1,4 +1,4 @@
-// screens/SignInPage.js
+import { Link } from "expo-router";
 import React, { useState } from "react";
 import {
   View,
@@ -9,31 +9,20 @@ import {
   Image,
 } from "react-native";
 
-export default function SignInPage({ setScreen }) {
-  const [wlcm, setWlcm] = useState("no");
 
-  return (
-    <>
-      {wlcm === "no" ? (
-        <Login setScreen={setScreen} setWlcm={setWlcm} />
-      ) : (
-        <Wlcm />
-      )}
-    </>
-  );
-}
 
-function Login({ setScreen, setWlcm }) {
+export default function Login() {
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/bg.jpeg")} style={styles.image} />
+      <Image source={require("../assets/in.jpg")} style={styles.image} />
       <TextInput style={styles.input} placeholder="Username or email" />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.signInButton}>
+      <Link href="page" style={styles.signInButton}>Log in</Link>
+      {/* <TouchableOpacity style={styles.signInButton}>
         <Text
           style={styles.signInButtonText}
           onPress={() => {
@@ -42,28 +31,15 @@ function Login({ setScreen, setWlcm }) {
         >
           Log in
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.optionText}>
         Don't have an account?{" "}
-        <Text
-          style={{ color: "blue" }}
-          onPress={() => {
-            setScreen("SignUp");
-          }}
-        >
-          Sign up
-        </Text>
+        <Link href="/signup" style={{color:"blue"}}>Sign Up</Link>
       </Text>
     </View>
   );
 }
-function Wlcm() {
-  return (
-    <View>
-      <Text>welcome</Text>
-    </View>
-  );
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -82,11 +58,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   signInButton: {
+    color:"white",
     width: "100%",
     backgroundColor: "#007BFF",
     padding: 12,
     marginTop: 15,
     alignItems: "center",
+    textAlign:"center",
     borderRadius: 10,
   },
   signInButtonText: {
@@ -101,5 +79,9 @@ const styles = StyleSheet.create({
   image: {
     width: "119%",
     height: 300,
+    marginBottom:20,
+    aspectRatio:"1/1",
+
+    
   },
 });

@@ -10,8 +10,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Link } from 'expo-router';
 
-export default function SignUpPage({ setScreen }) {
+export default function SignUpPage( ) {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,21 +27,14 @@ export default function SignUpPage({ setScreen }) {
 
   return (
     <View style={styles.container}>
-      <Image source={require("../assets/bg.jpeg")} style={styles.image} />
+      <Image source={require("../assets/up.jpg")} style={styles.image} />
 
-      {/* Full Name and Email TextInput */}
-      <View style={styles.row}>
-        <TextInput
-          style={[styles.input, styles.halfInput]}
-          placeholder="Full Name"
-        />
-        <TextInput
-          style={[styles.input, styles.halfInput]}
-          placeholder="Last Name"
-        />
-      </View>
+      {/* username TextInput */}
+     
+      <TextInput  maxLength={20} style={styles.inputEmail} placeholder="Username " />
 
-      <TextInput style={styles.inputEmail} placeholder="Username or email" />
+      {/* email TextInput */}
+      <TextInput style={styles.inputEmail } keyboardType="email-address" placeholder="Enter your email" />
 
       {/* Password TextInput */}
       <View style={styles.passwordContainer}>
@@ -53,7 +47,7 @@ export default function SignUpPage({ setScreen }) {
         />
         <TouchableWithoutFeedback onPress={toggleShowPassword}>
           <Ionicons
-            name={showPassword ? "eye-off-outline" : "eye-outline"}
+            name={showPassword ? "eye-outline" : "eye-off-outline"}
             size={24}
             color="#6c757d"
             style={styles.toggleIcon}
@@ -61,26 +55,11 @@ export default function SignUpPage({ setScreen }) {
         </TouchableWithoutFeedback>
       </View>
 
-      {/* Confirm Password TextInput */}
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={[styles.input, styles.fullInput]}
-          placeholder="Confirm Password"
-          secureTextEntry={!showPassword}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
-        <TouchableWithoutFeedback onPress={toggleShowPassword2}>
-          <Ionicons
-            name={showPassword ? "eye-off-outline" : "eye-outline"}
-            size={24}
-            color="#6c757d"
-            style={styles.toggleIcon}
-          />
-        </TouchableWithoutFeedback>
-      </View>
+      
+      
 
       {/* Sign Up Button */}
+      
       <TouchableOpacity style={styles.signUpButton}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
@@ -88,14 +67,7 @@ export default function SignUpPage({ setScreen }) {
       {/* Option Text */}
       <Text style={styles.optionText}>
         Already have an account?{" "}
-        <Text
-          style={{ color: "blue" }}
-          onPress={() => {
-            setScreen("SignIn");
-          }}
-        >
-          Log in
-        </Text>
+        <Link href="/login" style={{color:"blue"}}>Log In</Link>
       </Text>
     </View>
   );
@@ -148,6 +120,7 @@ const styles = StyleSheet.create({
   image: {
     width: "119%",
     height: 300,
+    aspectRatio:"1/1",
   },
   passwordContainer: {
     position: "relative",
