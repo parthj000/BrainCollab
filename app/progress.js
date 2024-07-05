@@ -1,14 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import ToastComponent, { Toast } from "../components/Toast";
 
 const progress = () => {
   return (
     <View>
-      <Text style={{alignContent:"center"}}>Progress</Text>
+      <Text style={{ alignContent: "center" }}>Progress</Text>
+      <ToastComponent />
     </View>
-  )
-}
+  );
+};
 
-export default progress
+export default progress;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

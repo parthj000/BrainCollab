@@ -8,25 +8,35 @@ import {
   Text,
   Image,
 } from "react-native";
+import LoginButton from "../components/LoginButton";
+import Toast from "react-native-toast-message";
 
 export default function Login() {
-  
-  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
+      <Toast />
       <Image source={require("../assets/in.jpg")} style={styles.image} />
-      <TextInput style={styles.input} placeholder="Username or email"  />
+      <TextInput
+        style={styles.input}
+        placeholder="Username or email"
+        onChangeText={(val) => {
+          setEmail(val);
+        }}
+      />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
-
+        onChangeText={(val) => {
+          setPassword(val);
+        }}
       />
-      
-      <TouchableOpacity  onPress={() => router.push({ pathname: 'welcome', params: { name: "" } })} style={styles.signInButton}>
-        <Text style={{color:"white",fontWeight:"bold"}}> Log in</Text>
-      </TouchableOpacity>
-      
+
+      <LoginButton email={email} password={password} />
+
       <Text style={styles.optionText}>
         Don't have an account?{" "}
         <Link href="/signup" style={{ color: "blue" }}>
