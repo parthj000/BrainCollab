@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import Toast from "react-native-toast-message";
+import { router } from "expo-router";
 
 async function logIn(email, password) {
-  await fetch("https://3776-106-206-158-167.ngrok-free.app/api/login", {
+  console.log(process.env.BACKEND_URI);
+  await fetch(`${process.env.BACKEND_URI}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,16 +16,22 @@ async function logIn(email, password) {
     }),
   })
     .then((res) => {
-      if (!res.ok) {
-        throw new Error("Something went wrong");
+      if (res.status === 200) {
+        router.push({
+          pathname: "/welcome",
+        });
+      } else if (res.status == 400 || res.status == 401 || res.status == 400) {
+        return res.json();
       }
-      return res.json();
+
+      throw new Error("Oops, Something went wrong !");
     })
     .then((data) => {
       Toast.show({
         type: "success",
         text1: data.message,
       });
+
       console.log(data);
     })
     .catch((error) => {

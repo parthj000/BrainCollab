@@ -16,34 +16,36 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.container}>
+    <>
       <Toast />
-      <Image source={require("../assets/in.jpg")} style={styles.image} />
-      <TextInput
-        style={styles.input}
-        placeholder="Username or email"
-        onChangeText={(val) => {
-          setEmail(val);
-        }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={(val) => {
-          setPassword(val);
-        }}
-      />
+      <View style={styles.container}>
+        <Image source={require("../assets/in.jpg")} style={styles.image} />
+        <TextInput
+          style={styles.input}
+          placeholder="Username or email"
+          onChangeText={(val) => {
+            setEmail(val);
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          onChangeText={(val) => {
+            setPassword(val);
+          }}
+        />
 
-      <LoginButton email={email} password={password} />
+        <LoginButton email={email} password={password} />
 
-      <Text style={styles.optionText}>
-        Don't have an account?{" "}
-        <Link href="/signup" style={{ color: "blue" }}>
-          Sign Up
-        </Link>
-      </Text>
-    </View>
+        <Text style={styles.optionText}>
+          Don't have an account?{" "}
+          <Link href="/signup" style={{ color: "blue" }}>
+            Sign Up
+          </Link>
+        </Text>
+      </View>
+    </>
   );
 }
 

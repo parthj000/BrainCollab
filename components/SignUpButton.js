@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Toast from "react-native-toast-message";
 
 async function signUp(email, username, password) {
-  console.log("pressed");
-  await fetch("https://3776-106-206-158-167.ngrok-free.app/api/signup", {
+  await fetch(`${process.env.BACKEND_URI}/api/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,13 +15,18 @@ async function signUp(email, username, password) {
     }),
   })
     .then((res) => {
-      return res.json();
+      if (res.status == 400 || res.status == 409 || res.status == 201) {
+        return res.json();
+      } else {
+        throw new Error("Oops, Something went wrong !");
+      }
     })
     .then((data) => {
       Toast.show({
         type: "success",
         text1: data.message,
       });
+
       console.log(data);
     })
     .catch((error) => {

@@ -27,57 +27,59 @@ export default function SignUpPage() {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       <Toast />
-      <Image source={require("../assets/up.jpg")} style={styles.image} />
+      <View style={styles.container}>
+        <Image source={require("../assets/up.jpg")} style={styles.image} />
 
-      {/* username TextInput */}
+        {/* username TextInput */}
 
-      <TextInput
-        maxLength={20}
-        style={styles.inputEmail}
-        placeholder="Username "
-        onChangeText={(username) => setUsername(username)}
-      />
-
-      {/* email TextInput */}
-      <TextInput
-        style={styles.inputEmail}
-        keyboardType="email-address"
-        placeholder="Enter your email"
-        onChangeText={(email) => setEmail(email)}
-      />
-
-      {/* Password TextInput */}
-      <View style={styles.passwordContainer}>
         <TextInput
-          style={[styles.input, styles.fullInput]}
-          placeholder="Password"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
+          maxLength={20}
+          style={styles.inputEmail}
+          placeholder="Username "
+          onChangeText={(username) => setUsername(username)}
         />
-        <TouchableWithoutFeedback onPress={toggleShowPassword}>
-          <Ionicons
-            name={showPassword ? "eye-outline" : "eye-off-outline"}
-            color="#6c757d"
-            style={styles.toggleIcon}
+
+        {/* email TextInput */}
+        <TextInput
+          style={styles.inputEmail}
+          keyboardType="email-address"
+          placeholder="Enter your email"
+          onChangeText={(email) => setEmail(email)}
+        />
+
+        {/* Password TextInput */}
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={[styles.input, styles.fullInput]}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
           />
-        </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={toggleShowPassword}>
+            <Ionicons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              color="#6c757d"
+              style={styles.toggleIcon}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+
+        {/* Sign Up Button */}
+
+        <SignUpButton email={email} password={password} username={username} />
+
+        {/* Option Text */}
+        <Text style={styles.optionText}>
+          Already have an account?{" "}
+          <Link href="/login" style={{ color: "blue" }}>
+            Log In
+          </Link>
+        </Text>
       </View>
-
-      {/* Sign Up Button */}
-
-      <SignUpButton email={email} password={password} username={username} />
-
-      {/* Option Text */}
-      <Text style={styles.optionText}>
-        Already have an account?{" "}
-        <Link href="/login" style={{ color: "blue" }}>
-          Log In
-        </Link>
-      </Text>
-    </View>
+    </>
   );
 }
 
