@@ -1,17 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
-import Login from './login'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import WelcomePage from "./welcome";
+import { Link } from "expo-router";
+import Login from "./login";
 
 const App = () => {
-  return (
-    
-      <Login/>
-    
-    
-  )
-}
+  return <WelcomePage />;
+};
 
-export default App
+export default App;
 
- styles = StyleSheet.create({})
+styles = StyleSheet.create({});

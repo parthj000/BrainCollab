@@ -4,8 +4,7 @@ import React from "react";
 const progress = () => {
   return (
     <View>
-      <Text style={{ alignContent: "center" }}>Progress</Text>
-      <ToastComponent />
+      <Text style={{ alignContent: "center" }}>Progress Page</Text>
     </View>
   );
 };
