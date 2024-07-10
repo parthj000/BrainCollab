@@ -1,11 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import WelcomePage from "./welcome";
-import { Link } from "expo-router";
-import Login from "./login";
+import MyCalendar from "./calendar";
 
 const App = () => {
-  return <WelcomePage />;
+  return <MyCalendar />;
 };
 
 export default App;

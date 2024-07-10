@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const Progress = () => {
+export default function SelectTimeComponent(props) {
   const [time, setTime] = useState(new Date());
   const [show, setShow] = useState(false);
 
@@ -19,7 +19,6 @@ const Progress = () => {
   const formatTime = (date) => {
     let hours = date.getHours();
     let minutes = date.getMinutes();
-    console.log(date.getHours(), ":", date.getMinutes());
     const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
@@ -32,7 +31,7 @@ const Progress = () => {
     <View style={styles.container}>
       <Pressable onPress={showTimepicker}>
         <TextInput
-          placeholder="Select time"
+          placeholder={props.placeholderText}
           value={formatTime(time)}
           editable={false}
           style={styles.input}
@@ -48,7 +47,7 @@ const Progress = () => {
       )}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -65,5 +64,3 @@ const styles = StyleSheet.create({
     borderRadius: 9,
   },
 });
-
-export default Progress;

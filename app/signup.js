@@ -4,20 +4,19 @@ import {
   View,
   TextInput,
   StyleSheet,
+  TouchableOpacity,
   Text,
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
-import SignUpButton from "../components/SignUpButton";
-import Toast from "react-native-toast-message";
+import { Link } from 'expo-router';
 
-export default function SignUpPage() {
+export default function SignUpPage( ) {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -27,59 +26,50 @@ export default function SignUpPage() {
   };
 
   return (
-    <>
-      <Toast />
-      <View style={styles.container}>
-        <Image source={require("../assets/up.jpg")} style={styles.image} />
+    <View style={styles.container}>
+      <Image source={require("../assets/up.jpg")} style={styles.image} />
 
-        {/* username TextInput */}
+      {/* username TextInput */}
+     
+      <TextInput  maxLength={20} style={styles.inputEmail} placeholder="Username " />
 
+      {/* email TextInput */}
+      <TextInput style={styles.inputEmail } keyboardType="email-address" placeholder="Enter your email" />
+
+      {/* Password TextInput */}
+      <View style={styles.passwordContainer}>
         <TextInput
-          maxLength={20}
-          style={styles.inputEmail}
-          placeholder="Username "
-          onChangeText={(username) => setUsername(username)}
+          style={[styles.input, styles.fullInput]}
+          placeholder="Password"
+          secureTextEntry={!showPassword}
+          value={password}
+          onChangeText={setPassword}
         />
-
-        {/* email TextInput */}
-        <TextInput
-          style={styles.inputEmail}
-          keyboardType="email-address"
-          placeholder="Enter your email"
-          onChangeText={(email) => setEmail(email)}
-        />
-
-        {/* Password TextInput */}
-        <View style={styles.passwordContainer}>
-          <TextInput
-            style={[styles.input, styles.fullInput]}
-            placeholder="Password"
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={setPassword}
+        <TouchableWithoutFeedback onPress={toggleShowPassword}>
+          <Ionicons
+            name={showPassword ? "eye-outline" : "eye-off-outline"}
+            
+            color="#6c757d"
+            style={styles.toggleIcon}
           />
-          <TouchableWithoutFeedback onPress={toggleShowPassword}>
-            <Ionicons
-              name={showPassword ? "eye-outline" : "eye-off-outline"}
-              color="#6c757d"
-              style={styles.toggleIcon}
-            />
-          </TouchableWithoutFeedback>
-        </View>
-
-        {/* Sign Up Button */}
-
-        <SignUpButton email={email} password={password} username={username} />
-
-        {/* Option Text */}
-        <Text style={styles.optionText}>
-          Already have an account?{" "}
-          <Link href="/login" style={{ color: "blue" }}>
-            Log In
-          </Link>
-        </Text>
+        </TouchableWithoutFeedback>
       </View>
-    </>
+
+      
+      
+
+      {/* Sign Up Button */}
+      
+      <TouchableOpacity style={styles.signUpButton}>
+        <Text style={styles.signUpButtonText}>Sign Up</Text>
+      </TouchableOpacity>
+
+      {/* Option Text */}
+      <Text style={styles.optionText}>
+        Already have an account?{" "}
+        <Link href="/login" style={{color:"blue"}}>Log In</Link>
+      </Text>
+    </View>
   );
 }
 
@@ -102,7 +92,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   halfInput: {
-    width: "48%",
+    width: "48%", 
   },
   row: {
     flexDirection: "row",
@@ -110,7 +100,18 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     width: "100%",
   },
-
+  signUpButton: {
+    width: "100%",
+    backgroundColor: "#007BFF",
+    padding: 12,
+    marginTop: 15,
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  signUpButtonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
   optionText: {
     marginTop: 10,
     fontSize: 14,
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   image: {
     width: "119%",
     height: 300,
-    aspectRatio: "1/1",
+    aspectRatio:"1/1",
   },
   passwordContainer: {
     position: "relative",
