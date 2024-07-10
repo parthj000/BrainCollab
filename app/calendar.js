@@ -1,28 +1,45 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Modal, ScrollView } from 'react-native';
+import { View, StyleSheet, Modal, ScrollView, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-big-calendar';
-import { Button, TextInput, Provider as PaperProvider } from 'react-native-paper';
+import { Button, TextInput, Provider as PaperProvider, Text,Divider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MyCalendar = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [view, setView] = useState('week');
   const [modalVisible, setModalVisible] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: '', start: '', end: '' });
+  const [newEvent, setNewEvent] = useState({ title: '', start: new Date(), end: new Date() });
+  const [pickerMode, setPickerMode] = useState(null);
+  const [showPicker, setShowPicker] = useState(false);
 
+
+  
   const handleAddEvent = () => {
-    const start = new Date(newEvent.start);
-    const end = new Date(newEvent.end);
-
-    if (isNaN(start) || isNaN(end) || !newEvent.title) {
-      alert('Please enter valid start and end times and a title.');
+    if (!newEvent.title) {
+      alert('Please enter a title.');
       return;
     }
 
-    setEvents([...events, { ...newEvent, start, end }]);
+    setEvents([...events, newEvent]);
     setModalVisible(false);
-    setNewEvent({ title: '', start: '', end: '' });
+    setNewEvent({ title: '', start: new Date(), end: new Date() });
   };
+
+  const handleDateChange = (event, selectedDate) => {
+    setShowPicker(false);
+    if (selectedDate) {
+      setNewEvent((prevEvent) => ({
+        ...prevEvent,
+        [pickerMode]: selectedDate,
+      }));
+    }
+  };
+
+
+
+  
 
   return (
     <PaperProvider>
@@ -33,9 +50,13 @@ const MyCalendar = () => {
           onValueChange={(itemValue) => setView(itemValue)}
         >
           <Picker.Item label="Day View" value="day" />
-          <Picker.Item label="Week View" value="week" />
+          <Picker.Item label="Week " value="week" />
           <Picker.Item label="Month View" value="month" />
         </Picker>
+
+        <Divider/>
+
+        
         
         <Calendar
           events={events}
@@ -68,22 +89,20 @@ const MyCalendar = () => {
                 style={styles.input}
                 mode="outlined"
               />
-              <TextInput
-                label="Start Time (YYYY-MM-DD HH:mm)"
-                value={newEvent.start}
-                onChangeText={(text) => setNewEvent({ ...newEvent, start: text })}
-                style={styles.input}
-                mode="outlined"
-                placeholder="2024-07-10 14:30"
-              />
-              <TextInput
-                label="End Time (YYYY-MM-DD HH:mm)"
-                value={newEvent.end}
-                onChangeText={(text) => setNewEvent({ ...newEvent, end: text })}
-                style={styles.input}
-                mode="outlined"
-                placeholder="2024-07-10 15:30"
-              />
+              <TouchableOpacity onPress={() => { setPickerMode('start'); setShowPicker(true); }}>
+                <Text style={styles.dateText}>Start Time: {newEvent.start.toLocaleString()}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => { setPickerMode('end'); setShowPicker(true); }}>
+                <Text style={styles.dateText}>End Time: {newEvent.end.toLocaleString()}</Text>
+              </TouchableOpacity>
+              {showPicker && (
+                <DateTimePicker
+                  value={newEvent[pickerMode]}
+                  mode="datetime"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
               <Button mode="contained" onPress={handleAddEvent} style={styles.button}>
                 Add Event
               </Button>
@@ -129,12 +148,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
-
   },
   input: {
     marginBottom: 10,
-    
+  },
+  dateText: {
+    fontSize: 18,
+    marginVertical: 10,
+    color: '#000',
   },
 });
- 
+
 export default MyCalendar;

@@ -1,9 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
-import Login from './login'
-import MyCalendar from './calendar'
-import { MIN_HEIGHT } from 'react-native-big-calendar'
+import WelcomePage from './welcome'
+import MyCalendar from './calendar.header'
 
 const App = () => {
   return (
@@ -16,4 +14,4 @@ const App = () => {
 
 export default App
 
- styles = StyleSheet.create({})
+ styles = StyleSheet.create({}) 
