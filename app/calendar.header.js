@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity,Touchable, StyleSheet, Modal, TextInput, Button, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Calendar, Agenda } from 'react-native-calendars';
+import { Calendar, Agenda, CalendarList } from 'react-native-calendars';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Divider } from 'react-native-paper';
 
@@ -78,9 +78,9 @@ const MyCalendar = () => {
       
       {view === 'day' && (
         <View style={styles.dayView}>
-          <TouchableOpacity onPress={() => handleDayScroll('prev')} style={styles.scrollButton}>
+          {/* <TouchableOpacity onPress={() => handleDayScroll('prev')} style={styles.scrollButton}>
             <Text>Previous Day</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <ScrollView>
             <View style={styles.timelineContainer}>
               {generateTimeSlots().map((time, index) => (
@@ -106,13 +106,19 @@ const MyCalendar = () => {
               ))}
             </View>
           </ScrollView>
-          <TouchableOpacity onPress={() => handleDayScroll('next')} style={styles.scrollButton}>
+          {/* <TouchableOpacity onPress={() => handleDayScroll('next')} style={styles.scrollButton}>
             <Text>Next Day</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Divider/>
         </View>
       )}
+
+
       {view === 'month' && (
-        <Calendar
+
+        <View style={{height:"75%"}}>
+        <CalendarList
+          style={{}}
           current={currentDate}
           onDayPress={(day) => setCurrentDate(day.dateString)}
           markedDates={events.reduce((acc, event) => {
@@ -121,8 +127,17 @@ const MyCalendar = () => {
             return acc;
           }, {})}
         />
+
+        <Divider/>
+
+        </View>
+        
       )}
+
+
       {view === 'week' && (
+
+        <View>
         <Agenda
           items={events.reduce((acc, event) => {
             const date = new Date(event.startDate).toISOString().split('T')[0];
@@ -132,8 +147,18 @@ const MyCalendar = () => {
           }, {})}
           selected={currentDate}
           renderItem={renderItem}
+
+          
         />
+        
+
+      </View>
+        
       )}
+
+      
+
+      
 
 
       <View style={styles.footer}>
