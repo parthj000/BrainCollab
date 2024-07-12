@@ -6,18 +6,27 @@ import TaskComponent from "./TaskComponent";
 
 const MonthView = () => {
   const { view, currentDate, setCurrentDate } = useContext(CalendarContext);
+  console.log(currentDate);
 
   if (view !== "month") return null;
 
   return (
-    <View style={{ height: "80%", borderBottomEndRadius: 50 }}>
+    // <View style={{ height: "80%", borderBottomEndRadius: 50 }}>
+    <>
       <Calendar
+        markedDates={{
+          [currentDate]: {selected: true, marked: true, selectedColor: 'cyan'},
+          '2012-05-17': {marked: true},
+          '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
+          '2012-05-19': {disabled: true, disableTouchEvent: true}}}
         current={currentDate}
         onDayPress={(day) => setCurrentDate(day.dateString)}
       />
 
       <TaskComponent />
-    </View>
+
+      </>
+    // </View>
   );
 };
 

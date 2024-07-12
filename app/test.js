@@ -64,7 +64,7 @@ const CustomWeeklyCalendar = () => {
             style={styles.dayContainer}
             onPress={() => setCurrentDate(date)}
           >
-            <Text style={styles.dateText}>{moment(date).format("ddd")}</Text>
+            <Text style={styles.dayText}>{moment(date).format("ddd")}</Text>
             <Text
               style={[
                 styles.dateText,
@@ -117,9 +117,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   dateText: {
-    fontSize: 13,
+    fontSize: 15,
     color: "black",
+    
   },
+  dayText:{
+    fontSize:11,
+    color:"grey",
+  }
+  ,
   selectedDate: {
     color: "blue",
     fontWeight: "bold",

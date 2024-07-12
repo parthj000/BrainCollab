@@ -21,16 +21,19 @@ const DayView = () => {
         <View style={styles.timelineContainer}>
           {generateTimeSlots().map((time, index) => (
             <View key={index} style={styles.timeSlot}>
-              <Text>{time}</Text>
+              <Text style={{paddingTop:"50"}} >{time}</Text>
               <View
                 style={{
-                  backgroundColor: "orange",
+                  backgroundColor: "grey",
                   flex: 1,
                   marginVertical: 2,
                   paddingLeft: 3,
+                  alignItems:"center",
+                  justifyContent:"center",
+                  borderRadius:7,
                 }}
               >
-                <Text style={{ color: "black" }}>Activity at {time}</Text>
+                <Text style={{ color: "white" }}>Activity at {time}</Text>
               </View>
             </View>
           ))}
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
   },
   timelineContainer: {
     flex: 1,
+
   },
   timeSlot: {
     height: 60,
@@ -60,6 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     marginTop: 5,
+
   },
 });
 
