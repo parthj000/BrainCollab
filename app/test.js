@@ -1,30 +1,43 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Dimensions, FlatList, Text, TouchableOpacity } from 'react-native';
-import { CalendarList } from 'react-native-calendars';
-import moment from 'moment';
+import React, { useState, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import { CalendarContext } from "../components/CalendarContext";
+import { useContext } from "react";
+import moment from "moment";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const CustomWeeklyCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(moment().format('YYYY-MM-DD'));
+  const { currentDate, setCurrentDate } = useContext(CalendarContext);
   const flatListRef = useRef(null);
-  const [data, setData] = useState([{ key: 'prev' }, { key: 'current' }, { key: 'next' }]);
+  const [data, setData] = useState([
+    { key: "prev" },
+    { key: "current" },
+    { key: "next" },
+  ]);
 
   const getWeekDates = (startDate) => {
-    const startOfWeek = moment(startDate).startOf('isoWeek');
+    const startOfWeek = moment(startDate).startOf("isoWeek");
     const weekDates = [];
     for (let i = 0; i < 7; i++) {
-      weekDates.push(startOfWeek.clone().add(i, 'days').format('YYYY-MM-DD'));
+      weekDates.push(startOfWeek.clone().add(i, "days").format("YYYY-MM-DD"));
     }
+
     return weekDates;
   };
 
   const getNextWeek = (date) => {
-    return moment(date).add(7, 'days').format('YYYY-MM-DD');
+    return moment(date).add(7, "days").format("YYYY-MM-DD");
   };
 
   const getPreviousWeek = (date) => {
-    return moment(date).subtract(7, 'days').format('YYYY-MM-DD');
+    return moment(date).subtract(7, "days").format("YYYY-MM-DD");
   };
 
   const handleHorizontalScroll = (event) => {
@@ -32,11 +45,11 @@ const CustomWeeklyCalendar = () => {
     if (contentOffset.x > width / 2) {
       const newDate = getNextWeek(currentDate);
       setCurrentDate(newDate);
-      setData([{ key: 'current' }, { key: 'next' }, { key: 'new' }]);
+      setData([{ key: "current" }, { key: "next" }, { key: "new" }]);
     } else if (contentOffset.x < width / 2) {
       const newDate = getPreviousWeek(currentDate);
       setCurrentDate(newDate);
-      setData([{ key: 'new' }, { key: 'prev' }, { key: 'current' }]);
+      setData([{ key: "new" }, { key: "prev" }, { key: "current" }]);
     }
     flatListRef.current.scrollToIndex({ index: 1, animated: false });
   };
@@ -46,9 +59,20 @@ const CustomWeeklyCalendar = () => {
     return (
       <View style={styles.weekContainer}>
         {weekDates.map((date) => (
-          <TouchableOpacity key={date} style={styles.dayContainer} onPress={() => setCurrentDate(date)}>
-            <Text style={styles.dateText}>{moment(date).format('ddd')}</Text>
-            <Text style={[styles.dateText, date === currentDate && styles.selectedDate]}>{moment(date).format('D')}</Text>
+          <TouchableOpacity
+            key={date}
+            style={styles.dayContainer}
+            onPress={() => setCurrentDate(date)}
+          >
+            <Text style={styles.dateText}>{moment(date).format("ddd")}</Text>
+            <Text
+              style={[
+                styles.dateText,
+                date === currentDate && styles.selectedDate,
+              ]}
+            >
+              {moment(date).format("D")}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -56,7 +80,7 @@ const CustomWeeklyCalendar = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
         data={data}
         horizontal
@@ -67,9 +91,11 @@ const CustomWeeklyCalendar = () => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.key}
         initialScrollIndex={1}
-        getItemLayout={(data, index) => (
-          { length: width, offset: width * index, index }
-        )}
+        getItemLayout={(data, index) => ({
+          length: width,
+          offset: width * index,
+          index,
+        })}
       />
     </View>
   );
@@ -78,28 +104,25 @@ const CustomWeeklyCalendar = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
-    
   },
   weekContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
 
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    
     width: width,
     paddingVertical: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   dayContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   dateText: {
     fontSize: 13,
-    color: 'black',
+    color: "black",
   },
   selectedDate: {
-    color: 'blue',
-    fontWeight: 'bold',
+    color: "blue",
+    fontWeight: "bold",
   },
 });
 

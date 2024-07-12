@@ -1,10 +1,16 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import React, { useState } from "react";
 import Toast from "react-native-toast-message";
 import { router } from "expo-router";
 
-async function logIn(email, password) {
-  console.log(process.env.BACKEND_URI);
+async function logIn(email, password, setLoading) {
+  setLoading(true);
   await fetch(`${process.env.BACKEND_URI}/api/login`, {
     method: "POST",
     headers: {
@@ -31,6 +37,7 @@ async function logIn(email, password) {
         type: "success",
         text1: data.message,
       });
+      setLoading(false);
 
       console.log(data);
     })
@@ -40,24 +47,31 @@ async function logIn(email, password) {
         text1: "Error",
         text2: error.message,
       });
+      setLoading(false);
     });
 }
 
 const LoginButton = ({ email, password }) => {
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
-      <TouchableOpacity
-        style={styles.signUpButton}
-        onPress={async () => {
-          try {
-            await logIn(email, password);
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-      >
-        <Text style={styles.signUpButtonText}>Log In</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="small" color="#007BFF" />
+      ) : (
+        <TouchableOpacity
+          style={styles.signUpButton}
+          onPress={async () => {
+            try {
+              await logIn(email, password, setLoading);
+            } catch (err) {
+              console.log(err);
+            }
+          }}
+        >
+          <Text style={styles.signUpButtonText}>Log In</Text>
+        </TouchableOpacity>
+      )}
     </>
   );
 };

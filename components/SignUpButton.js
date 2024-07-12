@@ -1,8 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import React, { useState } from "react";
 import Toast from "react-native-toast-message";
 
-async function signUp(email, username, password) {
+async function signUp(email, username, password, setLoading) {
+  setLoading(true);
   await fetch(`${process.env.BACKEND_URI}/api/signup`, {
     method: "POST",
     headers: {
@@ -26,8 +32,7 @@ async function signUp(email, username, password) {
         type: "success",
         text1: data.message,
       });
-
-      console.log(data);
+      setLoading(false);
     })
     .catch((error) => {
       Toast.show({
@@ -35,24 +40,30 @@ async function signUp(email, username, password) {
         text1: "Error",
         text2: error.message,
       });
+      setLoading(false);
     });
 }
 
 const SignUpButton = ({ email, username, password }) => {
+  const [loading, setLoading] = useState(false);
   return (
     <>
-      <TouchableOpacity
-        style={styles.signUpButton}
-        onPress={async () => {
-          try {
-            await signUp(email, username, password);
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-      >
-        <Text style={styles.signUpButtonText}>Sign Up</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator size="small" color="#007BFF" />
+      ) : (
+        <TouchableOpacity
+          style={styles.signUpButton}
+          onPress={async () => {
+            try {
+              await signUp(email, username, password, setLoading);
+            } catch (err) {
+              console.log(err);
+            }
+          }}
+        >
+          <Text style={styles.signUpButtonText}>Sign Up</Text>
+        </TouchableOpacity>
+      )}
     </>
   );
 };
