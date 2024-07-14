@@ -10,12 +10,15 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from 'expo-router';
+import { Link } from "expo-router";
+import SignUpButton from "../components/SignUpButton";
+import Toast from "react-native-toast-message";
 
-export default function SignUpPage( ) {
+export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -26,50 +29,57 @@ export default function SignUpPage( ) {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require("../assets/up.jpg")} style={styles.image} />
+    <>
+      <Toast />
+      <View style={styles.container}>
+        <Image source={require("../assets/up.jpg")} style={styles.image} />
 
-      {/* username TextInput */}
-     
-      <TextInput  maxLength={20} style={styles.inputEmail} placeholder="Username " />
+        {/* username TextInput */}
 
-      {/* email TextInput */}
-      <TextInput style={styles.inputEmail } keyboardType="email-address" placeholder="Enter your email" />
-
-      {/* Password TextInput */}
-      <View style={styles.passwordContainer}>
         <TextInput
-          style={[styles.input, styles.fullInput]}
-          placeholder="Password"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
+          maxLength={20}
+          style={styles.inputEmail}
+          placeholder="Username "
+          onChangeText={(val) => setUsername(val)}
         />
-        <TouchableWithoutFeedback onPress={toggleShowPassword}>
-          <Ionicons
-            name={showPassword ? "eye-outline" : "eye-off-outline"}
-            
-            color="#6c757d"
-            style={styles.toggleIcon}
+
+        {/* email TextInput */}
+        <TextInput
+          style={styles.inputEmail}
+          keyboardType="email-address"
+          placeholder="Enter your email"
+          onChangeText={(val) => setEmail(val)}
+        />
+
+        {/* Password TextInput */}
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={[styles.input, styles.fullInput]}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            onChangeText={(val) => setPassword(val)}
           />
-        </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={toggleShowPassword}>
+            <Ionicons
+              name={showPassword ? "eye-outline" : "eye-off-outline"}
+              color="#6c757d"
+              style={styles.toggleIcon}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+
+        {/* Sign Up Button */}
+        <SignUpButton email={email} password={password} username={username} />
+
+        {/* Option Text */}
+        <Text style={styles.optionText}>
+          Already have an account?{" "}
+          <Link href="/login" style={{ color: "blue" }}>
+            Log In
+          </Link>
+        </Text>
       </View>
-
-      
-      
-
-      {/* Sign Up Button */}
-      
-      <TouchableOpacity style={styles.signUpButton}>
-        <Text style={styles.signUpButtonText}>Sign Up</Text>
-      </TouchableOpacity>
-
-      {/* Option Text */}
-      <Text style={styles.optionText}>
-        Already have an account?{" "}
-        <Link href="/login" style={{color:"blue"}}>Log In</Link>
-      </Text>
-    </View>
+    </>
   );
 }
 
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   halfInput: {
-    width: "48%", 
+    width: "48%",
   },
   row: {
     flexDirection: "row",
@@ -120,7 +130,7 @@ const styles = StyleSheet.create({
   image: {
     width: "119%",
     height: 300,
-    aspectRatio:"1/1",
+    aspectRatio: "1/1",
   },
   passwordContainer: {
     position: "relative",

@@ -15,17 +15,18 @@ const MonthView = () => {
     <>
       <Calendar
         markedDates={{
-          [currentDate]: {selected: true, marked: true, selectedColor: 'cyan'},
-          '2012-05-17': {marked: true},
-          '2012-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
-          '2012-05-19': {disabled: true, disableTouchEvent: true}}}
+          [currentDate]: {
+            selected: true,
+            marked: true,
+            selectedColor: "cyan",
+          },
+        }}
         current={currentDate}
         onDayPress={(day) => setCurrentDate(day.dateString)}
       />
 
       <TaskComponent />
-
-      </>
+    </>
     // </View>
   );
 };

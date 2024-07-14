@@ -32,6 +32,7 @@ async function signUp(email, username, password, setLoading) {
         type: "success",
         text1: data.message,
       });
+      console.log(data);
       setLoading(false);
     })
     .catch((error) => {
@@ -40,6 +41,7 @@ async function signUp(email, username, password, setLoading) {
         text1: "Error",
         text2: error.message,
       });
+      console.log(data);
       setLoading(false);
     });
 }
