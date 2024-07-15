@@ -1,19 +1,26 @@
 import { Link, router, useRouter,useRouteParams } from "expo-router";
 import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ImageBackground } from "react-native";
-
+import Header from "./ios";
 
 
 export default function WelcomePage() {
   const route = useRouter();
-  
-
-
+    
   return(
     <>
-  <View style={{backgroundColor:"#ECECEC"}}>
 
-        <ImageBackground style={styles.bgimage} source={require("../assets/welcome-bg.png")}></ImageBackground>
+
+
+    {/* <View style={{backgroundColor:"#2596be",width:"100%",height:"7%",zIndex:1}}>
+      <Text>BrainFlow</Text>
+    </View> */}
+  <View style={{backgroundColor:"#ECECEC" , borderRadius:20}}>
+
+        
+
+        <ImageBackground style={styles.bgimage} source={require("../assets/welcome-bg.png")}></ImageBackground> 
+        
         <View style={styles.first}>
         <Text style={styles.Welcome}>Welcome <Text style={{color:"black", fontWeight:"bold"}}>back,</Text></Text>
         <Text style={styles.username}>Nitish !</Text>
@@ -26,25 +33,25 @@ export default function WelcomePage() {
           
           <TouchableOpacity style={styles.Actvitiy} onPress={() => route.push('/activities')} >
           
-            <Image source={require("../assets/activities.png")}></Image>
+            <Image style={{height:"80%" ,width:"100%"}} source={require("../assets/clock.png")}></Image>
           <Text>Actvitiy</Text>   
               
           </TouchableOpacity>
           
 
           <TouchableOpacity style={styles.Calender} onPress={() => route.push('/calendar')}>
-          <Image source={require("../assets/calendar.png")}></Image>
-          <Text >Calender</Text>          
+          <Image style={{height:"80%" ,width:"100%"}} source={require("../assets/calendar.png")}></Image>
+          <Text  >Calender</Text>          
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.Resources} onPress={() => route.push('/resources')}>
-          <Image source={require("../assets/meditation.png")}></Image>
+          <Image style={{height:"80%" ,width:"100%"}} source={require("../assets/books.png")}></Image>
           <Text >Resources</Text>
           
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.Progress} onPress={() => route.push('/progress')}>
-          <Image source={require("../assets/progress.png")}></Image>
+          <Image style={{height:"80%" ,width:"100%"}} source={require("../assets/bars.png")}></Image>
           <Text >Progress</Text>
           </TouchableOpacity>
 
@@ -81,13 +88,13 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     marginTop:"15%",
     fontSize:40,
-    color:"white"
+    color:"black"
 
     
 
   },
   username:{
-    color:"white",
+    color:"black",
     fontSize:25,
     fontWeight:"00",
   },
@@ -122,10 +129,7 @@ const styles = StyleSheet.create({
     flexWrap:"wrap",
     gap:15,
     paddingLeft:40,
-    paddingBottom:"100%"
-
-    
-    
+    paddingBottom:"100%" 
   },
   
 
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor:"white",
     width:"40%",
-    height:150,
+    height:140,
     borderRadius:15,
     alignItems:"center",
     justifyContent:"center",
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor:"white",
     width:"40%",
-    height:150,
+    height:140,
     borderRadius:15,
     alignItems:"center",
     justifyContent:"center",
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor:"white",
     width:"40%",
-    height:150,
+    height:140,
     borderRadius:15,
     alignItems:"center",
     justifyContent:"center",
@@ -186,7 +190,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor:"white",
     width:"40%",
-    height:150,
+    height:140,
     borderRadius:15,
     alignItems:"center",
     justifyContent:"center",

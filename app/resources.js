@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import Header from './TopHeader'
 
 const resources = () => {
   return (
     <View>
-      <Text style={{alignContent:"center"}}>Resources</Text>
+       <Header title="Resources"/>
+      <Text style={{alignContent:"center"}}> Resources </Text>
     </View>
   )
 }

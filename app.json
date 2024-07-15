@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
-    "scheme": "my-app",
+    "name": "brainFlow",
+    "slug": "brainFlow",
+    "scheme": "brainFlow",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/bars.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,15 +17,25 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/bars.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.naazix.myapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "248b2ae4-3568-4752-9cd3-9d379ce3ebbd"
+      }
+    },
+    "owner": "naazix"
   }
 }

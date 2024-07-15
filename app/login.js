@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import LoginButton from "../components/LoginButton";
 import Toast from "react-native-toast-message";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ export default function Login() {
     <>
       <Toast />
       <View style={styles.container}>
-        <Image source={require("../assets/in.jpg")} style={styles.image} />
+        {/* <Image source={require("../assets/in.jpg")} style={styles.image} /> */}
         <TextInput
           style={styles.input}
           placeholder="Username or email"
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    
     paddingHorizontal: 30,
   },
   input: {
