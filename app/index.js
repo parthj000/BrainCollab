@@ -5,11 +5,12 @@ import WelcomePage from "./welcome";
 import Login from "./login";
 import MyCalendar from "./calendar";
 import TaskComponent from "../components/TaskComponent";
-import Header from "./ios";
+import SignUp from "./Signuptest";
+import SignUpPage from "./Signuptest";
 
 const App = () => {
 
-  return <WelcomePage/>
+  return <Login/>
   
   
 }

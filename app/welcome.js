@@ -1,6 +1,6 @@
 import { Link, router, useRouter,useRouteParams } from "expo-router";
 import React from "react";
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ImageBackground } from "react-native";
+import {SafeAreaView, View, TextInput, StyleSheet, TouchableOpacity, Text, Image,ImageBackground } from "react-native";
 import Header from "./ios";
 
 
@@ -12,9 +12,7 @@ export default function WelcomePage() {
 
 
 
-    {/* <View style={{backgroundColor:"#2596be",width:"100%",height:"7%",zIndex:1}}>
-      <Text>BrainFlow</Text>
-    </View> */}
+    
   <View style={{backgroundColor:"#ECECEC" , borderRadius:20}}>
 
         
@@ -70,12 +68,12 @@ const styles = StyleSheet.create({
   
   bgimage:{
     position: 'absolute',
-    top:-210,
+    top:-240,
     left: 0,
     right: 0,
     bottom: 0,
     width: 500,
-    height: 505,
+    height: 545,
     zIndex: -1,
   },
   first:{

@@ -1,3 +1,4 @@
+// screens/SignUpPage.js
 import React, { useState } from "react";
 import {
   View,
@@ -5,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  Image,
   TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,92 +20,36 @@ export default function SignUpPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
-  const [errors, setErrors] = useState({});
-
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const validate = () => {
-    let valid = true;
-    let errors = {};
-
-    if (!username) {
-      valid = false;
-      errors["username"] = "Username is required";
-    }
-
-    if (!email) {
-      valid = false;
-      errors["email"] = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      valid = false;
-      errors["email"] = "Email is invalid";
-    }
-
-    if (!password) {
-      valid = false;
-      errors["password"] = "Password is required";
-    } else if (password.length < 6) {
-      valid = false;
-      errors["password"] = "Password must be at least 6 characters";
-    }
-
-    setErrors(errors);
-    return valid;
-  };
-
-  const handleSubmit = () => {
-    if (validate()) {
-      // Proceed with form submission
-      console.log("Form is valid");
-      // Call your SignUpButton component's onPress or equivalent method here
-      Toast.show({
-        type: 'success',
-        text1: 'Success',
-        text2: 'Sign up successful!',
-      });
-    } else {
-      console.log("Form has errors");
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Please fix the errors in the form',
-      });
-    }
+  const toggleShowPassword2 = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <>
       <Toast />
       <View style={styles.container}>
-        <Text
-          style={{
-            fontSize: 35,
-            fontWeight: "bold",
-            marginBottom: 16,
-          }}
-        >
-          SignUp
-        </Text>
+        {/* <Image source={require("../assets/up.jpg")} style={styles.image} /> */}
 
-        {/* Username TextInput */}
+        {/* username TextInput */}
+
         <TextInput
           maxLength={20}
           style={styles.inputEmail}
-          placeholder="Username"
+          placeholder="Username "
           onChangeText={(val) => setUsername(val)}
         />
-        {errors.username && <Text style={styles.errorText}>{errors.username}</Text>}
 
-        {/* Email TextInput */}
+        {/* email TextInput */}
         <TextInput
           style={styles.inputEmail}
           keyboardType="email-address"
           placeholder="Enter your email"
           onChangeText={(val) => setEmail(val)}
         />
-        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
         {/* Password TextInput */}
         <View style={styles.passwordContainer}>
@@ -121,12 +67,9 @@ export default function SignUpPage() {
             />
           </TouchableWithoutFeedback>
         </View>
-        {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signUpButton} onPress={handleSubmit}>
-          <Text style={styles.signUpButtonText}>Sign Up</Text>
-        </TouchableOpacity>
+        <SignUpButton email={email} password={password} username={username} />
 
         {/* Option Text */}
         <Text style={styles.optionText}>
@@ -158,23 +101,14 @@ const styles = StyleSheet.create({
   fullInput: {
     width: "100%",
   },
-  passwordContainer: {
-    position: "relative",
-    width: "100%",
+  halfInput: {
+    width: "48%",
   },
-  toggleIcon: {
-    position: "absolute",
-    right: 12,
-    top: 12,
-  },
-  inputEmail: {
-    width: "100%",
-    height: 40,
-    borderColor: "rgb(219 217 217)",
-    borderWidth: 1,
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 12,
-    padding: 12,
-    borderRadius: 9,
+    width: "100%",
   },
   signUpButton: {
     width: "100%",
@@ -193,8 +127,27 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "rgb(80 84 89)",
   },
-  errorText: {
-    color: "red",
+  image: {
+    width: "119%",
+    height: 300,
+    aspectRatio: "1/1",
+  },
+  passwordContainer: {
+    position: "relative",
+    width: "100%",
+  },
+  toggleIcon: {
+    position: "absolute",
+    right: 12,
+    top: 12,
+  },
+  inputEmail: {
+    width: "100%",
+    height: 40,
+    borderColor: "rgb(219 217 217)",
+    borderWidth: 1,
     marginBottom: 12,
+    padding: 12,
+    borderRadius: 9,
   },
 });
